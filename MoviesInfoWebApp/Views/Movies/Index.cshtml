@@ -1,0 +1,93 @@
+﻿@model IEnumerable<MoviesInfoWebApp.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+
+    <div class="col-md-12"> @* offset-md-1">*@
+        <h1>Фильмы</h1>
+        <br>
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Обложка")
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.MovieName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Genre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descriprion)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImageName)
+                    </th>
+                    <th>
+                        <a asp-action="Create" class="btn btn-sm btn-success" style="width:100px !important">
+                            <i class="fa-solid fa-plus"></i>
+                            Добавить
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>
+
+                        <img src="@("~/image/"+item.ImageName)" asp-append-version="true" width="50px" height="50px" />
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MovieName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descriprion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageName)
+                    </td>
+                    <td>
+
+                        <form asp-action="Delete" asp-route-id="@item.MovieId">
+                            <div class="btn-group btn-group-sm">
+                                <a asp-action="Create" asp-route-id="@item.MovieId" class="btn btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+
+                                <a asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-info">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+
+                                <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('Вы точно хотите удалить фильм из базы?')">
+                                    <i class="far fa-trash-alt"> </i>
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
